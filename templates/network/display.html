@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid text-center" style="margin-top:50px;">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-8 text-left">
+      {% for s in status %}
+
+       <a href="{% url 'detail_status' s.id %}" data-toggle="tooltip" title="view post"><img src="{{ s.status_Img.url }}" class="img-thumbnail" alt="..." width="100%"></a>
+
+      {% endfor %}
+    </div>
+    <div class="col-sm-2 sidenav">
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

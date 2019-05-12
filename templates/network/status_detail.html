@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" style="margin-top:50px" >
+    <h3>posted by {{ status.owner.username }}</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="{{ status.status_Img.url }}" class="img-thumbnail" alt="..." width="100%"><br>
+
+        </div>
+        <div class="col-sm-6">
+           <strong> "{{ status.description }}"</strong>
+             <div class="main-comment-section">
+          {{ total_likes }}Like{{total_likes|pluralize }}
+        <form action="{% url 'like_status' %}" method="post">
+          {% csrf_token %}
+          {% if is_liked %}
+          <button type="submit" name="status_id" value="{{ status.id }}" class="btn btn-danger">disLike</button>
+          {% else %}
+          <button type="submit" name="status_id" value="{{ status.id }}" class="btn btn-primary">Like</button>
+          {% endif %}
+        </form>
+                 <form method="post">
+{% csrf_token %}
+                     {{ comment_form|crispy }}
+                     <input type="submit" value="Submit" class="btn btn-outline-success">
+                 </form>
+         <div class="main-comment-section">
+         {{ comments.count }} Comment{{ comments|pluralize }}
+        {% for comment in comments %}
+        <blockquote class="blockquote">
+          <p class="mb-0">
+            {{ comment.content }}
+          </p>
+          <footer class="blockquote-footer">by <cite title="Source title">{{ comment.user|capfirst }}</cite> </footer>
+        </blockquote>
+        {% endfor %}
+             </div>
+      </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

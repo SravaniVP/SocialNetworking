@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="well" style="margin-top:75px">
+    <div class="row">
+
+        <div class="col-sm-3">
+            <form method = "post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-button">Upload</button>
+            </form>
+
+        </div>
+
+        <div class="col-sm-9">
+            {% for s in status %}
+            <img src="{{ s.status_Img.url }}" class="img-thumbnail" alt="..." width="50%">
+            <a href="{% url 'StatusDeleteView' pk=s.pk %}"><strong>Delete Post</strong></a>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
